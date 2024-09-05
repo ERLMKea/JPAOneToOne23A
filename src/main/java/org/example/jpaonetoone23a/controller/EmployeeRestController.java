@@ -1,17 +1,15 @@
 package org.example.jpaonetoone23a.controller;
 
 import org.example.jpaonetoone23a.model.Employee;
-import org.example.jpaonetoone23a.model.User;
 import org.example.jpaonetoone23a.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-public class EmployeeController {
+public class EmployeeRestController {
 
     @Autowired
     EmployeeRepository employeeRepository;
@@ -25,5 +23,15 @@ public class EmployeeController {
     List<Employee> getEmpoyeesName(@PathVariable String name) {
         return employeeRepository.findEmployeeByName(name);
     }
+
+    @PostMapping("/employee")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Employee postUser(@RequestBody Employee employee) {
+        System.out.println(employee);
+        return employeeRepository.save(employee);
+    }
+
+
+
 
 }
